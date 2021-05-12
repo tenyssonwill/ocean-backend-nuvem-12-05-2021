@@ -43,5 +43,5 @@
 ## O que é banco de dados?
 
 - admim
-- senha: oxqKZyhA01EmKXx0
+- senha: 
 
