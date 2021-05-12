@@ -54,33 +54,39 @@ const mensagem = await mensagensCollection.findOne({ _id: ObjectId(id) });
 });
 
 // POST: CREATE (criar um registro)
-app.post('/mensagens', (req, res) => {
-  const mensagem = req.body.mensagem;
+app.post('/mensagens', async (req, res) => {
+  const mensagem = req.body;
 
-  mensagens.push(mensagem);
+  await mensagensCollection.insertOne(mensagem);
+  //mensagens.push(mensagem);
 
-  const id = mensagens.length;
+  //const id = mensagens.length;
 
-  res.send(`Mensagem '${id}' criada com sucesso.`);
+  res.send(mensagem);
 });
 
 // PUT: UPDATE (editar um registro)
-app.put('/mensagens/:id', (req, res) => {
-  const id = req.params.id - 1;
+app.put('/mensagens/:id', async (req, res) => {
+  const id = req.params.id;
 
-  const mensagem = req.body.mensagem;
+  const mensagem = req.body;
 
-  mensagens[id] = mensagem;
+  //mensagens[id] = mensagem;
+  await mensagensCollection.updateOne(
+    ccc,
+    { $set: mensagem}
+  );
 
-  res.send('Mensagem atualizada com sucesso.');
+  res.send('Mensagem editada com sucesso.');
 });
 
 // DELETE: DELETE (remover um registro)
-app.delete('/mensagens/:id', (req, res) => {
-  const id = req.params.id - 1;
+app.delete('/mensagens/:id', async (req, res) => {
+  const id = req.params.id;
 
-  delete mensagens[id];
+  //delete mensagens[id];
 
+  await mensagensCollection.deleteOne({_id: ObjectId(id)})
   res.send('Mensagem removida com sucesso.');
 });
 
