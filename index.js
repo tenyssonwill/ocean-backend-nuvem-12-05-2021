@@ -3,9 +3,10 @@ const { MongoClient, ObjectId } = require('mongodb');
 
 (async () => {
 
-const url = 'mongodb://localhost:27017';
+//const url = 'mongodb://localhost:27017';
+const url = 'mongodb+srv://admin:oxqKZyhA01EmKXx0@cluster0.rquxc.mongodb.net/ocean_db?retryWrites=true&w=majority'
 
-const dbName = 'ocean_bancodedados_20210511';
+const dbName = 'ocean_db';
 
 console.info('Conectando ao banco de dados...');
 
@@ -88,6 +89,6 @@ app.delete('/mensagens/:id', async (req, res) => {
   res.send('Mensagem removida com sucesso.');
 });
 
-app.listen(3000);
+app.listen(process.env.PORT || 3000);
 
 })();
