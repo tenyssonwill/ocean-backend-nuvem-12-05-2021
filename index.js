@@ -5,7 +5,7 @@ const { MongoClient, ObjectId } = require('mongodb');
 
 const url = 'mongodb://localhost:27017';
 
-const dbName = 'ocean_bancodados_11_05_2021';
+const dbName = 'ocean_bancodedados_20210511';
 
 console.info('Conectando ao banco de dados...');
 
@@ -37,10 +37,14 @@ app.get('/mensagens', async (req, res) => {
 });
 
 // GET: READ SINGLE (exibir apenas um registro)
-app.get('/mensagens/:id', (req, res) => {
-  const id = req.params.id - 1;
+app.get('/mensagens/:id', async (req, res) => {
+  const id = req.params.id;
 
-  const mensagem = mensagens[id];
+//  const listaMensagens = await mensagensCollection.find().toArray();
+//  const mensagem = listaMensagens[id];
+
+const mensagem = await mensagensCollection.findOne({ _id: ObjectId(id) });
+//const mensagem = await mensagensCollection.findOne({ _id: ObjectId(id) }).catch(console.error);
 
   if (!mensagem) {
     res.send('Mensagem não encontrada.');
